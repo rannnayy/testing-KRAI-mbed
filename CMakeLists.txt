@@ -14,8 +14,8 @@ project(${APP_TARGET})
 add_subdirectory(${MBED_PATH} ${CMAKE_CURRENT_BINARY_DIR}/mbed-os)
 
 add_executable(${APP_TARGET}
-    Motor/Motor.cpp
-    encoderKRAI/encoderKRAI.cpp
+    encoderHAL/EncoderMspInitF4.h
+    encoderHAL/encoderHAL.cpp
     main.cpp
 )
 

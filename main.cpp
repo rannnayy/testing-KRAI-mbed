@@ -2,8 +2,10 @@
 // #include "Declarations.h"
 // #include "odometriKRAI/odometriKRAI.h"
 
-#include "Motor/Motor.h"
-#include "encoderKRAI/encoderKRAI.h"
+// #include "Motor/Motor.h"
+// #include "encoderKRAI/encoderKRAI.h"
+#include "encoderHAL/encoderHAL.h"
+#include "encoderHAL/EncoderMspInitF4.h"
 // #include "CMPS12_KRAI/CMPS12_KRAI.h"
 // #include "JoystickPS3.h"
 // #include "odometriKRAI.h"
@@ -28,9 +30,9 @@
 // #define motorB_L PC_0
 // #define motorB_PWM PB_0
 
-#define motorA_R PA_11
-#define motorA_L PB_12
-#define motorA_PWM PC_9
+// #define motorA_R PA_11
+// #define motorA_L PB_12
+// #define motorA_PWM PC_9
 
 // #define motorD_L PB_12 // BL
 // #define motorD_R PA_12
@@ -51,8 +53,8 @@
 // #define ENC_CLAW_R_CHA   PC_15    // ENC_INT_4
 // #define ENC_CLAW_R_CHB   PC_3
 
-#define ENC_INTA_CHA PC_10
-#define ENC_INTA_CHB PC_13
+// #define ENC_INTA_CHA PC_10
+// #define ENC_INTA_CHB PC_13
 
 // #define ENC_INTB_CHA PC_14
 // #define ENC_INTB_CHB PC_2
@@ -79,13 +81,13 @@
 //Servo Servo4(PC_9); //OK
 //Servo Servo5(PC_8); //OK
 
-Motor a_motor           (motorA_PWM, motorA_R, motorA_L);
+// Motor a_motor           (motorA_PWM, motorA_R, motorA_L);
 // Motor b_motor           (motorB_PWM, motorB_R, motorB_L);
 // Motor c_motor           (motorC_PWM, motorC_R, motorC_L);
 // Motor d_motor           (motorD_PWM, motorD_R, motorD_L);
 // Motor e_motor           (motorE_PWM, motorE_R, motorE_L);
 
-encoderKRAI encA        (ENC_INTA_CHA, ENC_INTA_CHB, 538, X4_ENCODING);
+// encoderKRAI encA        (ENC_INTA_CHA, ENC_INTA_CHB, 538, X4_ENCODING);
 // encoderKRAI encB        (ENC_INTB_CHA, ENC_INTB_CHB, 538, X4_ENCODING);
 // encoderKRAI encC        (ENC_INTC_CHA, ENC_INTC_CHB, 538, X4_ENCODING);
 // encoderKRAI encD        (ENC_INTD_CHA, ENC_INTD_CHB, 538, X4_ENCODING);
@@ -111,11 +113,11 @@ encoderKRAI encA        (ENC_INTA_CHA, ENC_INTA_CHB, 538, X4_ENCODING);
 // #define UART_TX PA_0
 
 /* ENCODER */
-// encoderHAL encX(TIM3);
-// encoderHAL encY(TIM4);
+encoderHAL encX(TIM3);
+encoderHAL encY(TIM4);
 
-// int xTemp;
-// int yTemp;
+int xTemp;
+int yTemp;
 
 // odometriKRAI odom(&encX, &encY);
 
@@ -125,20 +127,20 @@ FileHandle *mbed::mbed_override_console(int fd)
     return &serial_port;
 }
 
-uint32_t samplingPrint = 0;
+// uint32_t samplingPrint = 0;
 
 int main(){
     while(1) {
-        // xTemp = encX.getPulses(1);                            /* butuh 1.5us */
-        // yTemp = encY.getPulses(1);                            /* butuh 1.5us */
-        // printf("%d %d\n", xTemp, yTemp);
+        xTemp = encX.getPulses(1);                            /* butuh 1.5us */
+        yTemp = encY.getPulses(1);                            /* butuh 1.5us */
+        printf("%d %d\n", xTemp, yTemp);
         // odom.updatePosition();
         
-        if (us_ticker_read() - samplingPrint > ENC_MOTOR_SAMP_US_DEF) {
-            printf("%d %f\n", encA.getPulses(), encA.getPulses()*2*PI*WHEEL_RAD*S_TO_US/(ENC_MOTOR_PULSE*ENC_MOTOR_SAMP_US_DEF));
-            // encA.reset();
-            samplingPrint = us_ticker_read();
-        }
+        // if (us_ticker_read() - samplingPrint > ENC_MOTOR_SAMP_US_DEF) {
+        //     printf("%d %f\n", encA.getPulses(), encA.getPulses()*2*PI*WHEEL_RAD*S_TO_US/(ENC_MOTOR_PULSE*ENC_MOTOR_SAMP_US_DEF));
+        //     // encA.reset();
+        //     samplingPrint = us_ticker_read();
+        // }
         // printf("HALOOOOO\n");
         // d_motor.speed(0);
         // a_motor.speed(1);
