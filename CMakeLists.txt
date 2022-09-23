@@ -14,9 +14,8 @@ project(${APP_TARGET})
 add_subdirectory(${MBED_PATH} ${CMAKE_CURRENT_BINARY_DIR}/mbed-os)
 
 add_executable(${APP_TARGET}
-    encoderHAL/encoderHAL.cpp
-    CMPS12_KRAI/CMPS12_KRAI.cpp
-    odometriKRAI/odometriKRAI.cpp
+    Motor/Motor.cpp
+    encoderKRAI/encoderKRAI.cpp
     main.cpp
 )
 
