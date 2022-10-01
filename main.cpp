@@ -1,14 +1,34 @@
 #include "mbed.h"
-#include "Declarations.h"
+// #include "Declarations.h"
 // #include "odometriKRAI/odometriKRAI.h"
 
 // #include "Motor/Motor.h"
-// #include "encoderKRAI/encoderKRAI.h"
+#include "encoderKRAI/encoderKRAI.h"
 // #include "CMPS12_KRAI/CMPS12_KRAI.h"
 // #include "JoystickPS3.h"
 // #include "odometriKRAI.h"
 // #include "millis.h"
 // #include "Servo.h"
+
+// #define motorBL_R PC_13
+// #define motorBL_L PB_1
+// #define motorBL_PWM PB_0
+
+// #define motorFL_R PC_3
+// #define motorFL_L PC_2
+// #define motorFL_PWM PB_9
+
+// #define motorBR_R PC_14
+// #define motorBR_L PC_15
+// #define motorBR_PWM PA_11
+
+// #define motorFR_R PA_14
+// #define motorFR_L PB_3
+// #define motorFR_PWM PB_8
+
+// #define motorD_R PC_11
+// #define motorD_L PC_10
+// #define motorD_PWM PB_10
 
 // #define motorD_L PB_12 // BL
 // #define motorD_R PA_12
@@ -41,17 +61,17 @@
 // #define ENC_CLAW_R_CHA   PC_15    // ENC_INT_4
 // #define ENC_CLAW_R_CHB   PC_3
 
-// #define ENC_INT1_CHA PC_11 // br
-// #define ENC_INT1_CHB PC_12
+#define ENC_INTBL_CHA PC_5 // BL
+#define ENC_INTBL_CHB PC_5
 
-// #define ENC_INT2_CHA PC_13 // FC
-// #define ENC_INT2_CHB PC_10
+#define ENC_INTBL_CHA PC_0
+#define ENC_INTBL_CHB PC_1
 
-// #define ENC_INT3_CHA PC_1 // bl balik
-// #define ENC_INT3_CHB PC_15
+#define ENC_INTFL_CHA PB_14 // FL
+#define ENC_INTFL_CHB PB_2
 
-// #define ENC_INT4_CHA PC_1
-// #define ENC_INT4_CHB PC_0
+#define ENC_INTBR_CHA PC_8
+#define ENC_INTBR_CHB PB_15
 
 // #define ENC_INT5_CHA PA_13
 // #define ENC_INT5_CHB PA_12
@@ -69,16 +89,16 @@
 //Servo Servo4(PC_9); //OK
 //Servo Servo5(PC_8); //OK
 
-// Motor a_motor           (motorA_PWM, motorA_R, motorA_L);
-// Motor b_motor           (motorB_PWM, motorB_R, motorB_L);
-// Motor c_motor           (motorC_PWM, motorC_R, motorC_L);
-// Motor d_motor           (motorD_PWM, motorD_R, motorD_L);
+// Motor BR_motor           (motorBR_PWM, motorBR_R, motorBR_L);
+// Motor FL_motor           (motorFL_PWM, motorFL_R, motorFL_L);
+// Motor BL_motor           (motorBL_PWM, motorBL_R, motorBL_L);
+// Motor FR_motor           (motorFR_PWM, motorFR_R, motorFR_L);
 //Motor e_motor           (motorE_PWM, motorE_R, motorE_L);
 
-// encoderKRAI encA        (ENC_INT1_CHA, ENC_INT1_CHB, 538, X4_ENCODING);
-// encoderKRAI encB        (ENC_INT2_CHA, ENC_INT2_CHB, 538, X4_ENCODING);
-// encoderKRAI encC        (ENC_INT3_CHA, ENC_INT3_CHB, 538, X4_ENCODING);
-// encoderKRAI encD        (ENC_INT4_CHA, ENC_INT4_CHB, 538, encoderKRAI::X4_ENCODING);
+encoderKRAI encA        (ENC_INTFL_CHA, ENC_INTFL_CHB, 538, X4_ENCODING);
+encoderKRAI encB        (ENC_INTFR_CHA, ENC_INTFR_CHB, 538, X4_ENCODING);
+encoderKRAI encC        (ENC_INTBR_CHA, ENC_INTBR_CHB, 538, X4_ENCODING);
+encoderKRAI encD        (ENC_INTBL_CHA, ENC_INTBL_CHB, 538, X4_ENCODING);
 // encoderKRAI encE        (ENC_INT5_CHA, ENC_INT5_CHB, 538, encoderKRAI::X4_ENCODING);
 //encoderKRAI encF        (ENC_INT6_CHA, ENC_INT6_CHB, 538, encoderKRAI::X4_ENCODING);
 
@@ -120,14 +140,14 @@ int main(){
         // xTemp = encX.getPulses(1);                            /* butuh 1.5us */
         // yTemp = encY.getPulses(1);                            /* butuh 1.5us */
         // printf("%d %d\n", xTemp, yTemp);
-        odom.updatePosition();
-        // printf("%d %d %d\n", encA.getPulses(), encB.getPulses(), encC.getPulses());
+        // odom.updatePosition();
+        printf("%d %d %d %d\n", encA.getPulses(), encB.getPulses(), encC.getPulses(), encD.getPulses());
         // printf("HALOOOOO\n");
         // d_motor.speed(0);
-        // a_motor.speed(-0.5);
-        // b_motor.speed(-0.5);
-        // c_motor.speed(-0.5);
-        // d_motor.speed(-0.5);
+        // BR_motor.speed(-0.5);
+        // BL_motor.speed(-0.5);
+        // BL_motor.speed(-0.5);
+        // FR_motor.speed(-0.5);
         // wait(1000);
         // a_motor.speed(-0);
         // b_motor.speed(-0.05);
